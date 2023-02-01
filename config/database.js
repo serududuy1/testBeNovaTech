@@ -1,7 +1,7 @@
 const {
   DB_USER = "root",
   DB_PASSWORD = "",
-  DB_NAME = "lezvesfk",
+  DB_NAME = "novatech",
   DB_HOST = "127.0.0.1",
 } = process.env;
 

@@ -26,8 +26,4 @@ app.use((error, req, res, next) => {
 
   res.status(status).json({ message, data });
 });
-
-app.listen(port, () => {
-  console.log(`berjalan di http://localhost:${port}/`);
-});
 module.exports = app;
