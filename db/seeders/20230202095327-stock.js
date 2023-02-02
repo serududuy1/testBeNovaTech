@@ -1,21 +1,22 @@
 "use strict";
 
-const names = ["SAMSUNG", "XIAOMI", "APPLE"];
-const des = ["Samsung Z Fold", "REDMI NOTE 11", "IPHONE 14Pro"];
+const product = ["1", "2", "3"];
+const stock = ["5", "2", "7"];
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     const timestamp = new Date();
 
-    const Kategori = names.map((names, i) => ({
-      nama: names,
-      deskripsi: des[i],
+    const Stock = product.map((product, i) => ({
+      // nama: product,
+      product_id: product,
+      stock: stock[i],
       createdAt: timestamp,
       updatedAt: timestamp,
     }));
 
-    await queryInterface.bulkInsert("Kategories", Kategori, {});
+    await queryInterface.bulkInsert("Stocks", Stock, {});
   },
 
   async down(queryInterface, Sequelize) {},

@@ -1,0 +1,8 @@
+npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
+
+
+npx sequelize model:generate --name Products --attributes kategori_id:integer, tahun_keluaran:string, warna:string, harga:string
+
+npx sequelize model:generate --name Kategories --attributes nama:string,deskripsi:text
+
+npx sequelize model:generate --name Stocks --attributes product_id:integer,stock:string
