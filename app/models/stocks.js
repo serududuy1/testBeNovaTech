@@ -18,11 +18,6 @@ module.exports = (sequelize, DataTypes) => {
           name: "id",
         },
       });
-      // Stocks.hasMany(models.Penjualan, {
-      //   foreignKey: {
-      //     name: "id",
-      //   },
-      // });
     }
   }
   Stocks.init(

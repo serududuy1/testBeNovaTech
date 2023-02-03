@@ -7,18 +7,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const SALT = 10;
 
-const encryptPassword = (password) => {
-  return new Promise((resolve, reject) => {
-    bcrypt.hash(password, SALT, (err, encryptedPassword) => {
-      if (!!err) {
-        reject(err);
-        return;
-      }
-      resolve(encryptedPassword);
-    });
-  });
-};
-
 const checkPassword = (encryptedPassword, password) => {
   return new Promise((resolve, reject) => {
     bcrypt.compare(password, encryptedPassword, (err, isPasswordCorrect) => {
@@ -41,126 +29,6 @@ module.exports = {
   accessControl: {
     admin: 1,
     customer: 2,
-  },
-
-  async allDataCustomer(req, res) {
-    await User.findAll()
-      .then((articles) => {
-        res.status(200).json(articles);
-      })
-      .catch((err) => {
-        res.status(400).json({
-          status: "failed",
-          message: err,
-        });
-      });
-  },
-
-  async createCustomer(req, res) {
-    const encryptedPassword = await encryptPassword(req.body.password);
-
-    let existingUser = await User.findOne({
-      where: {
-        email: req.body.email,
-      },
-    });
-
-    if (existingUser) {
-      res.status(422).json({
-        message: "email already in use",
-      });
-      return;
-    }
-
-    User.create({
-      username: req.body.username,
-      password: encryptedPassword,
-      email: req.body.email,
-      role: 1,
-    })
-      .then((data) => {
-        res.status(201).json(data);
-      })
-      .catch((err) => {
-        res.status(422).json("tidak bisa create data");
-      });
-  },
-
-  async deleteCustomer(req, res) {
-    let existingUser = await User.findOne({
-      where: {
-        id: req.params.id,
-      },
-    });
-
-    if (!existingUser) {
-      res.status(404).json({
-        message: "User Not Found!",
-      });
-      return;
-    }
-
-    User.destroy({
-      where: {
-        id: req.params.id,
-      },
-    })
-      .then(res.status(204).json())
-      .catch((err) => {
-        res.status(400).json({
-          message: "error",
-          data: err,
-        });
-      });
-  },
-
-  getCustomerById(req, res) {
-    User.findOne({
-      where: {
-        email: req.user.email,
-      },
-    })
-      .then((result) => {
-        res.status(200).json({
-          message: "data tersedia",
-          data: result,
-        });
-      })
-      .catch((err) => res.status(422).json(err));
-  },
-
-  async updateCustomer(req, res) {
-    const encryptedPassword = await encryptPassword(req.body.password);
-    let existingUser = await User.findOne({
-      where: {
-        email: req.body.email,
-      },
-    });
-
-    if (!existingUser) {
-      res.status(404).json({
-        message: "User Not Found!",
-      });
-      return;
-    }
-
-    const data = {
-      name: req.body.name,
-      password: encryptedPassword,
-    };
-
-    User.update(data, {
-      where: {
-        email: req.body.email,
-      },
-    })
-      .then((result) => {
-        res.status(201).json({
-          message: "data update",
-          data: result,
-        });
-      })
-      .catch((err) => res.status(422).json(err));
   },
 
   async loginCustomer(req, res) {
@@ -277,7 +145,7 @@ module.exports = {
         req.user = tokenPayload;
         next();
       } catch (err) {
-        res.status(407).json({
+        res.status(401).json({
           error: {
             name: err,
             message: "not Authorize!",

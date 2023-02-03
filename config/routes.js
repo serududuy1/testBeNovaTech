@@ -19,14 +19,22 @@ router.get(
 
 // API STOCK
 router.get(
-  "/stock",
-  //   api.usersController.authorize(accessControl.admin),
-  api.productController.getAllStock
+  "/allstock",
+  // api.usersController.authorize(accessControl.admin),
+  api.productController.getStockProduct
 );
-router.get("/allstock", api.productController.getStockProduct);
 
 // API SALES
-router.get("/salesbymonth", api.productController.getSalesByMonth);
+router.get(
+  "/salesbymonth",
+  // api.usersController.authorize(accessControl.admin),
+  api.productController.getSalesByMonth
+);
+router.get(
+  "/allsales",
+  api.usersController.authorize(accessControl.admin),
+  api.productController.getAllSales
+);
 
 // API USER
 router.post("/users/v1/login", api.usersController.loginCustomer);

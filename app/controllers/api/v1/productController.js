@@ -1,30 +1,35 @@
 const { Penjualan, Products, Kategories, Stocks } = require("../../../models");
-
 const sequelize = require("sequelize");
 
-// // // Connect to database
-
 module.exports = {
-  getAllProduct(req, res) {
-    Products.findAll().then((result) => {
-      res.status(200).json({
-        status: "OK",
-        message: "TERSEDIA",
-        data: result,
+  async getAllProduct(req, res) {
+    await Products.findAll()
+      .then((result) => {
+        res.status(200).json({
+          status: "OK",
+          message: "TERSEDIA",
+          data: result,
+        });
+      })
+      .catch((err) => {
+        return err;
       });
-    });
   },
-  getAllKategori(req, res) {
-    Kategories.findAll().then((result) => {
-      res.status(200).json({
-        status: "OK",
-        message: "TERSEDIA",
-        data: result,
+  async getAllKategori(req, res) {
+    await Kategories.findAll()
+      .then((result) => {
+        res.status(200).json({
+          status: "OK",
+          message: "TERSEDIA",
+          data: result,
+        });
+      })
+      .catch((err) => {
+        return err;
       });
-    });
   },
-  getAllStock(req, res) {
-    Stocks.findAll({
+  async getAllStock(req, res) {
+    await Stocks.findAll({
       include: [
         {
           model: Products,
@@ -38,67 +43,76 @@ module.exports = {
           ],
         },
       ],
-    }).then((result) => {
-      res.status(200).json({
-        status: "OK",
-        message: "TERSEDIA",
-        data: result,
+    })
+      .then((result) => {
+        res.status(200).json({
+          status: "OK",
+          message: "TERSEDIA",
+          data: result,
+        });
+      })
+      .catch((err) => {
+        return err;
       });
-    });
   },
-  getStockProduct(req, res) {
-    Penjualan.findAll({
-      attributes: [
-        ["id", "id_penjualan"],
-        ["stock_id", "id_stock"],
-        ["quantity", "quantity"],
-      ],
+  async getStockProduct(req, res) {
+    await Stocks.findAll({
+      attributes: [["stock", "stock"]],
       include: [
         {
-          model: Stocks,
-          attributes: [["stock", "stock"]],
+          model: Products,
+          attributes: [["harga", "harga"]],
           include: [
             {
-              model: Products,
-              attributes: [["harga", "harga"]],
-              include: [
-                {
-                  model: Kategories,
-                  attributes: [
-                    ["deskripsi", "deskripsi"],
-                    ["nama", "nama"],
-                  ],
-                },
+              model: Kategories,
+              attributes: [
+                ["deskripsi", "deskripsi"],
+                ["nama", "nama"],
               ],
             },
           ],
         },
       ],
-      group: ["stock_id"],
-      raw: true,
-    }).then((result) => {
-      res.status(200).json({
-        status: "OK",
-        message: "TERSEDIA",
-        data: result,
+      group: ["stocks.id"],
+    })
+      .then((result) => {
+        res.status(200).json({
+          status: "OK",
+          message: "TERSEDIA",
+          data: result,
+        });
+      })
+      .catch((err) => {
+        return err;
       });
-    });
   },
-  getSalesByMonth(req, res) {
-    Penjualan.findAll({
+  async getSalesByMonth(req, res) {
+    await Penjualan.findAll({
       attributes: [
-        // [
-        //   sequelize.fn("DATE_FORMAT", sequelize.col("tanggal_transaksi"), "%m"),
-        //   "month",
-        // ],
         [
           sequelize.fn("DATE_FORMAT", sequelize.col("tanggal_transaksi"), "%m"),
           "month",
         ],
-        [sequelize.fn("SUM", sequelize.col("quantity")), "total_penjualan"],
-        ["quantity", "quantity"],
-        // [sequelize.fn("sum", sequelize.col("quantity")), "total_sales"],
+        [sequelize.fn("SUM", sequelize.col("quantity")), "total_stock_keluar"],
+        [sequelize.fn("SUM", sequelize.col("total_harga")), "total_uang_masuk"],
       ],
+      group: [
+        sequelize.fn("DATE_FORMAT", sequelize.col("tanggal_transaksi"), "%m"),
+      ],
+    })
+      .then((result) => {
+        res.status(200).json({
+          status: "OK",
+          message: "TERSEDIA",
+          data: result,
+        });
+      })
+      .catch((err) => {
+        return err;
+      });
+  },
+  async getAllSales(req, res) {
+    await Penjualan.findAll({
       include: [
         {
           model: Products,
@@ -109,17 +123,16 @@ module.exports = {
           ],
         },
       ],
-
-      group: [
-        sequelize.fn("DATE_FORMAT", sequelize.col("tanggal_transaksi"), "%m"),
-      ],
-      // raw: true,
-    }).then((result) => {
-      res.status(200).json({
-        status: "OK",
-        message: "TERSEDIA",
-        data: result,
+      group: ["Penjualan.id"],
+    })
+      .then((result) => {
+        res.status(200).json({
+          message: "berhasil",
+          data: result,
+        });
+      })
+      .catch((err) => {
+        return err;
       });
-    });
   },
 };

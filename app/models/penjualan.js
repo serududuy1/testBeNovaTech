@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       tanggal_transaksi: DataTypes.DATE,
       product_id: DataTypes.INTEGER,
       quantity: DataTypes.STRING,
+      total_harga: DataTypes.STRING,
     },
     {
       sequelize,
