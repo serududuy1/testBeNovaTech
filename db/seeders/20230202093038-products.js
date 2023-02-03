@@ -23,5 +23,7 @@ module.exports = {
     await queryInterface.bulkInsert("Products", Product, {});
   },
 
-  async down(queryInterface, Sequelize) {},
+  async down(queryInterface, Sequelize) {
+    await queryInterface.bulkDelete("Products");
+  },
 };

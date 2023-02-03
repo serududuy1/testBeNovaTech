@@ -6,7 +6,6 @@ const CONFIG_DIR = path.join(__dirname, "./config");
 const DB_DIR = path.join(__dirname, "./db");
 
 dotenv.config();
-
 module.exports = {
   config: path.join(CONFIG_DIR, "database.js"),
   "models-path": path.join(APP_DIR, "models"),

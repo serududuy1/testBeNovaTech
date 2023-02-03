@@ -6,23 +6,27 @@ const { accessControl } = require("../app/controllers/api/v1/usersController");
 // API PRODUCT
 router.get(
   "/product",
-  api.usersController.authorize(accessControl.admin),
+  //   api.usersController.authorize(accessControl.admin),
   api.productController.getAllProduct
 );
 
 // API KATEGORI
 router.get(
   "/kategori",
-  api.usersController.authorize(accessControl.admin),
+  //   api.usersController.authorize(accessControl.admin),
   api.productController.getAllKategori
 );
 
 // API STOCK
 router.get(
   "/stock",
-  api.usersController.authorize(accessControl.admin),
+  //   api.usersController.authorize(accessControl.admin),
   api.productController.getAllStock
 );
+router.get("/allstock", api.productController.getStockProduct);
+
+// API SALES
+// router.get("/sales", api.productController.getSales);
 
 // API USER
 router.post("/users/v1/login", api.usersController.loginCustomer);

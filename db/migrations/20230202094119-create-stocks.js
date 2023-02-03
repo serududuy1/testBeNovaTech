@@ -16,6 +16,7 @@ module.exports = {
           key: "id",
           as: "product_id",
         },
+        onDelete: "cascade",
       },
       stock: {
         type: Sequelize.STRING,

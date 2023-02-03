@@ -6,3 +6,11 @@ npx sequelize model:generate --name Products --attributes kategori_id:integer, t
 npx sequelize model:generate --name Kategories --attributes nama:string,deskripsi:text
 
 npx sequelize model:generate --name Stocks --attributes product_id:integer,stock:string
+
+SELECT products.id,nama, stock, deskripsi, tahun_keluaran, warna, harga
+  FROM products
+  INNER JOIN kategories
+  ON products.kategori_id = kategories.id
+  INNER JOIN stocks
+  ON products.id = stocks.product_id
+  ORDER by kategories.id

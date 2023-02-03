@@ -16,6 +16,7 @@ module.exports = {
           key: "id",
           as: "kategori_id",
         },
+        onDelete: "cascade",
       },
       tahun_keluaran: {
         type: Sequelize.STRING,

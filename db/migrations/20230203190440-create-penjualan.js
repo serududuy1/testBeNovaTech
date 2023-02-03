@@ -2,18 +2,27 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Kategories", {
+    await queryInterface.createTable("Penjualans", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      nama: {
-        type: Sequelize.STRING,
+      tanggal_transaksi: {
+        type: Sequelize.DATE,
       },
-      deskripsi: {
-        type: Sequelize.TEXT,
+      stock_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Stocks",
+          key: "id",
+          as: "stock_id",
+        },
+        onDelete: "cascade",
+      },
+      quantity: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -26,6 +35,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Kategories");
+    await queryInterface.dropTable("Penjualans");
   },
 };
