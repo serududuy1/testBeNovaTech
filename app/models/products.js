@@ -18,8 +18,7 @@ module.exports = (sequelize, DataTypes) => {
           name: "kategori_id",
         },
       });
-
-      Products.hasMany(models.Penjualan, {
+      Products.hasMany(models.Stocks, {
         foreignKey: {
           name: "id",
         },

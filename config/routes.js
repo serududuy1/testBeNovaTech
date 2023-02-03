@@ -26,7 +26,7 @@ router.get(
 router.get("/allstock", api.productController.getStockProduct);
 
 // API SALES
-// router.get("/sales", api.productController.getSales);
+router.get("/salesbymonth", api.productController.getSalesByMonth);
 
 // API USER
 router.post("/users/v1/login", api.usersController.loginCustomer);
@@ -35,27 +35,4 @@ router.post(
   api.usersController.authorize(accessControl.admin),
   api.usersController.logout
 );
-// const {
-//   allProduct,
-//   createProduct,
-//   productById,
-//   productByUser,
-//   deleteProduct,
-//   cariProduct,
-//   updateQuantityProducts,
-// } = require("../controllers/product.js");
-// const { authorize, accessControl } = require("../controllers/customer");
-// router.get("/v1", allProduct);
-// router.get("/v1/cari/product", allProduct);
-// router.post("/v1/create", createProduct);
-// //  createProduct);
-// router.get(
-//   "/v1/seller/allproduct",
-//   authorize(accessControl.admin),
-//   productByUser
-// );
-// router.get("/v1/:id", productById);
-// router.delete("/v1/delete/:idp", deleteProduct);
-// router.get("/v1/cari/product=:cp", cariProduct);
-// router.put("/v1/update/product=:idUpdate", updateQuantityProducts);
 module.exports = router;

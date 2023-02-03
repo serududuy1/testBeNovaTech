@@ -84,37 +84,42 @@ module.exports = {
       });
     });
   },
-  // async getSales(req, res) {
-  //   Penjualan.findAll({
-  //     attributes: [
-  //       [
-  //         sequelize.fn(
-  //           "DATE_FORMAT",
-  //           sequelize.col("tanggal_transaksi"),
-  //           "%Y-%m-%d"
-  //         ),
-  //         "month",
-  //       ],
-  //       [sequelize.fn("sum", sequelize.col("quantity")), "total_sales"],
-  //     ],
-  //     include: [
-  //       {
-  //         model: Stocks,
-  //         include: [
-  //           {
-  //             model: Products,
-  //             include: [
-  //               {
-  //                 model: Kategories,
-  //               },
-  //             ],
-  //           },
-  //         ],
-  //       },
-  //     ],
+  getSalesByMonth(req, res) {
+    Penjualan.findAll({
+      attributes: [
+        // [
+        //   sequelize.fn("DATE_FORMAT", sequelize.col("tanggal_transaksi"), "%m"),
+        //   "month",
+        // ],
+        [
+          sequelize.fn("DATE_FORMAT", sequelize.col("tanggal_transaksi"), "%m"),
+          "month",
+        ],
+        [sequelize.fn("SUM", sequelize.col("quantity")), "total_penjualan"],
+        ["quantity", "quantity"],
+        // [sequelize.fn("sum", sequelize.col("quantity")), "total_sales"],
+      ],
+      include: [
+        {
+          model: Products,
+          include: [
+            {
+              model: Kategories,
+            },
+          ],
+        },
+      ],
 
-  //     // group: ["month"],
-  //     raw: true,
-  //   });
-  // },
+      group: [
+        sequelize.fn("DATE_FORMAT", sequelize.col("tanggal_transaksi"), "%m"),
+      ],
+      // raw: true,
+    }).then((result) => {
+      res.status(200).json({
+        status: "OK",
+        message: "TERSEDIA",
+        data: result,
+      });
+    });
+  },
 };

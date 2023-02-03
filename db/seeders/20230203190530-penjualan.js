@@ -14,7 +14,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     const timestamp = new Date();
     const Penjualans = product.map((product, i) => ({
-      stock_id: product,
+      product_id: product,
       quantity: qtt[i],
       tanggal_transaksi: bulan[i],
       createdAt: timestamp,

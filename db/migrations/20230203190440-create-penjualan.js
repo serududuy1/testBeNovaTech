@@ -12,7 +12,7 @@ module.exports = {
       tanggal_transaksi: {
         type: Sequelize.DATE,
       },
-      stock_id: {
+      product_id: {
         type: Sequelize.INTEGER,
         references: {
           model: "Stocks",
