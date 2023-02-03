@@ -1,9 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-
+const routes = require("../config/routes");
 const app = express();
-const port = process.env.PORT || 8999;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -13,6 +12,7 @@ app.get("/", (req, res) => {
     message: "Selamat Datang",
   });
 });
+app.use(routes);
 app.use("*", (req, res) => {
   res.status(404).json({
     message: "URL TIDAK TERSEDIA",
