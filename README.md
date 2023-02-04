@@ -36,6 +36,16 @@ Start the server
 
 ############################################################################
 
+# UNIT TESTING
+
+## testing using jest
+
+```bash
+  npm test
+```
+
+############################################################################
+
 # API Reference
 
 ## Get Root
@@ -132,3 +142,15 @@ Token: <token>
 ```
 
 ############################################################################
+
+## Get Product By Kategori Id
+
+```http
+  POST http://localhost:8000/kategori/{id}
+```
+
+##### Authorization : Bearer Token
+
+```
+Token: <token>
+```

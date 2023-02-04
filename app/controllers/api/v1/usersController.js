@@ -1,6 +1,4 @@
 const { User } = require("../../../models");
-// const { validationResult } = require("express-validator");
-const { Op } = require("sequelize");
 require("dotenv").config();
 
 const bcrypt = require("bcryptjs");

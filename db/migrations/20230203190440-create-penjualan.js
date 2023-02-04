@@ -24,9 +24,6 @@ module.exports = {
       quantity: {
         type: Sequelize.STRING,
       },
-      total_harga: {
-        type: Sequelize.STRING,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
