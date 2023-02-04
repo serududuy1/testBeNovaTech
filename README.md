@@ -1,7 +1,4 @@
-
-
 ## Backend Express.js
-
 
 ## Installation
 
@@ -10,26 +7,26 @@ Install Library yang dibutuhkan sesuai package.json
 ```bash
   npm i
 ```
-    
+
 ## Create Database
+
 ```bash
   npx sequelize db:create
 ```
+
 ## Migration Database
-  
+
 ```bash
   npx sequelize db:migrate
 ```
-## seeder Database / insert dummy 
-  
+
+## seeder Database / insert dummy
+
 ```bash
   npx sequelize db:seed:all
 ```
-  
 
-  
 ## Run Locally
-
 
 Start the server
 
@@ -37,30 +34,101 @@ Start the server
   npm start
 ```
 
+############################################################################
 
-## API Reference
+# API Reference
 
-#### Get Root
-
-```http
-  GET /
-```
-
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `api_key` | `string` | **Required**. Your API key |
-
-#### Get item
+## Get Root
 
 ```http
-  GET /api/items/${id}
+  GET http://localhost:8000/
 ```
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. Id of item to fetch |
+############################################################################
 
-#### add(num1, num2)
+## Login
 
-Takes two numbers and returns the sum.
+```http
+  POST http://localhost:8000/users/v1/login
+```
 
+##### Body raw
+
+```bash
+{
+    "email": "aris@mail.com",
+    "password":"123456"
+}
+```
+
+############################################################################
+
+## Get All Product
+
+```http
+  GET http://localhost:8000/product
+```
+
+##### Authorization : Bearer Token
+
+```
+Token: <token>
+```
+
+############################################################################
+
+## Get All Kategori
+
+```http
+  GET http://localhost:8000/kategori
+```
+
+##### Authorization : Bearer Token
+
+```
+Token: <token>
+```
+
+############################################################################
+
+### Get All Stock
+
+```http
+  GET http://localhost:8000/allstock
+```
+
+##### Authorization : Bearer Token
+
+```
+Token: <token>
+```
+
+############################################################################
+
+### Get Sales per Month
+
+```http
+  GET http://localhost:8000/salesbymonth
+```
+
+##### Authorization : Bearer Token
+
+```
+Token: <token>
+```
+
+############################################################################
+
+### Get All Sales
+
+```http
+  GET http://localhost:8000/allsales
+```
+
+##### Authorization : Bearer Token
+
+```
+Token: <token>
+```
+
+############################################################################
